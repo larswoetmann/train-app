@@ -5,39 +5,31 @@ const maaloevStation = { longitude: 12.318323, latitude: 55.747485, id: "8600709
 const oesterportStation = { longitude: 12.587784, latitude: 55.692498, id: "8600650", name: "Østerport Station" };
 const skovlundeStation = { longitude: 12.403532, latitude: 55.722765, id: "8600707", name: "Skovlunde Station" };
 
+var selectedJourneyDetailRef: string;
+var firstDepartureTime: Date | undefined;
+var clockTimer: number | undefined;
+var globalTimer: number | undefined;
 
-// function geoFindMe() {
-//   const status = document.getElementById("status")!;
-//   status.textContent = "";
+function globalTimerFunction() {
+  const now = new Date();
+  console.log("Global timer", firstDepartureTime, now);
+  if (!firstDepartureTime || now > firstDepartureTime) {
+    navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        var { closestStation } = getClosestStation(latitude, longitude);
+        getDepartures(closestStation);
+      }, (error) => {
+        const countdown = document.getElementById("countdown")!;
+        countdown.textContent = "Unable to retrieve your location";
+        console.log(error);
+      }
+    );
+  }
+}
 
-//   function success(position: GeolocationPosition) {
-//     const latitude = position.coords.latitude;
-//     const longitude = position.coords.longitude;
-//     const distance = getDistance({ latitude: latitude, longitude: longitude }, maaloevStationCoordinates);
-//     status.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °, Speed: ${position.coords.speed} m/s, Accuracy: ${position.coords.accuracy} m, Distance to station: ${distance} m`;
-
-//   }
-
-//   function error() {
-//     status.textContent = "Unable to retrieve your location";
-//   }
-
-//   if (!navigator.geolocation) {
-//     status.textContent = "Geolocation is not supported by your browser";
-//   } else {
-//     status.textContent = "Locating…";
-
-//     const options = {
-//       enableHighAccuracy: true,
-//       maximumAge: 30000,
-//       timeout: 27000,
-//     };
-
-//     navigator.geolocation.watchPosition(success, error, options);
-//   }
-// }
-
-//document.getElementById("find-me")!.addEventListener("click", geoFindMe);
+globalTimerFunction();
+globalTimer = setInterval(globalTimerFunction, 60000);
 
 navigator.geolocation.watchPosition((position) => {
   const latitude = position.coords.latitude;
@@ -58,21 +50,6 @@ navigator.geolocation.watchPosition((position) => {
   timeout: 27000,
 });
 
-
-navigator.geolocation.getCurrentPosition((position) => {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  var { closestStation } = getClosestStation(latitude, longitude);
-  getDepartures(closestStation);
-
-}, (error) => {
-  const countdown = document.getElementById("countdown")!;
-  countdown.textContent = "Unable to retrieve your location";
-  console.log(error);
-});
-
-var selectedJourneyDetailRef: string;
-var globalTimer: number | undefined;
 
 function getClosestStation(latitude: number, longitude: number) {
   const distanceToMaaloev = getDistance({ latitude: latitude, longitude: longitude }, maaloevStation);
@@ -104,11 +81,19 @@ function getDepartures(closestStation: string) {
       const ul = document.getElementById("departures")!;
       ul.innerHTML = "";
       departures.forEach(departure => {
-        if (departure.directionFlag === "1") {
+        if (departure.directionFlag === "1" && closestStation === maaloevStation.id) {
+          var departureTime = getDepartureDate(departure.time);
+          if (!firstDepartureTime || departureTime < firstDepartureTime) {
+            firstDepartureTime = departureTime;
+          }
+
           const li = document.createElement("li");
           li.textContent = `${departure.time} ${departure.name} ${departure.direction}`;
           li.attributes.setNamedItem(document.createAttribute("data"));
           li.attributes.getNamedItem("data")!.value = departure.JourneyDetailRef.ref;
+          if(selectedJourneyDetailRef === departure.JourneyDetailRef.ref) {
+            li.style.backgroundColor = "green";
+          }
           ul.appendChild(li);
         }
       });
@@ -125,8 +110,8 @@ document.getElementById("departures")!.addEventListener("click", function (event
     (node as HTMLElement).style.backgroundColor = "";
   });
 
-  if (globalTimer) {
-    clearInterval(globalTimer);
+  if (clockTimer) {
+    clearInterval(clockTimer);
   }
 
   //check if target is a li element
@@ -146,19 +131,15 @@ document.getElementById("departures")!.addEventListener("click", function (event
 
   //show countdown timer for selected departur time
   const departureTime = target.textContent!.split(" ")[0];
-  const departureDate = new Date();
-  const departureTimeParts = departureTime.split(":");
-  departureDate.setHours(parseInt(departureTimeParts[0]));
-  departureDate.setMinutes(parseInt(departureTimeParts[1]));
-  departureDate.setSeconds(0);
+  const departureDate = getDepartureDate(departureTime);
   const countdown = document.getElementById("countdown")!;
   countdown.textContent = "";
 
-  globalTimer = setInterval(function () {
+  clockTimer = setInterval(function () {
     const now = new Date();
     const diff = departureDate.getTime() - now.getTime();
     if (diff <= 0) {
-      clearInterval(globalTimer);
+      clearInterval(clockTimer);
       countdown.textContent = "Departure time";
       return;
     }
@@ -169,3 +150,13 @@ document.getElementById("departures")!.addEventListener("click", function (event
     , 1000);
 
 });
+
+function getDepartureDate(departureTime: string) {
+  const departureDate = new Date();
+  const departureTimeParts = departureTime.split(":");
+  departureDate.setHours(parseInt(departureTimeParts[0]));
+  departureDate.setMinutes(parseInt(departureTimeParts[1]));
+  departureDate.setSeconds(0);
+  return departureDate;
+}
+
