@@ -335,7 +335,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&id=8600709&extId=&direction=8600659&date=&time=&dur=&duration=60&maxJourneys=-1&products=&operators=DSB&categories=&lines=C&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&",
+							"raw": "https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=8600709&extId=&direction=&date=&time=&dur=&duration=60&maxJourneys=6&products=&operators=&categories=&lines=C&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&",
 							"protocol": "https",
 							"host": [
 								"www",
@@ -361,7 +361,7 @@
 								},
 								{
 									"key": "format",
-									"value": "xml"
+									"value": "json"
 								},
 								{
 									"key": "jsonpCallback",
@@ -381,7 +381,7 @@
 								},
 								{
 									"key": "direction",
-									"value": "8600659"
+									"value": ""
 								},
 								{
 									"key": "date",
@@ -401,7 +401,7 @@
 								},
 								{
 									"key": "maxJourneys",
-									"value": "-1"
+									"value": "6"
 								},
 								{
 									"key": "products",
@@ -409,7 +409,7 @@
 								},
 								{
 									"key": "operators",
-									"value": "DSB"
+									"value": ""
 								},
 								{
 									"key": "categories",
@@ -462,6 +462,565 @@
 				}
 			],
 			"description": "departureBoard"
+		},
+		{
+			"name": "trainSearch",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/trainSearch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/trainSearch?accessId=&aid=&requestId=&format=&jsonpCallback=&lang=da&match=&filters=&stations=&station=&uic=&operators=&lines=&infotexts=&date=&time=&dateB=&dateE=&timeB=&timeE=&showPassingPoints=false&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"trainSearch"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": ""
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": ""
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "match",
+									"value": ""
+								},
+								{
+									"key": "filters",
+									"value": ""
+								},
+								{
+									"key": "stations",
+									"value": ""
+								},
+								{
+									"key": "station",
+									"value": ""
+								},
+								{
+									"key": "uic",
+									"value": ""
+								},
+								{
+									"key": "operators",
+									"value": ""
+								},
+								{
+									"key": "lines",
+									"value": ""
+								},
+								{
+									"key": "infotexts",
+									"value": ""
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "time",
+									"value": ""
+								},
+								{
+									"key": "dateB",
+									"value": ""
+								},
+								{
+									"key": "dateE",
+									"value": ""
+								},
+								{
+									"key": "timeB",
+									"value": ""
+								},
+								{
+									"key": "timeE",
+									"value": ""
+								},
+								{
+									"key": "showPassingPoints",
+									"value": "false"
+								},
+								{
+									"key": null,
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "trainSearch"
+		},
+		{
+			"name": "linesched",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/linesched",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/linesched?accessId=&aid=&requestId=&format=&jsonpCallback=&lang=da&lineId=&date=&orderBy=&includeHim=false&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"linesched"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": ""
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": ""
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "lineId",
+									"value": ""
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "orderBy",
+									"value": ""
+								},
+								{
+									"key": "includeHim",
+									"value": "false"
+								},
+								{
+									"key": null,
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "linesched"
+		},
+		{
+			"name": "journeyDetail",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/journeyDetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/journeyDetail?accessId=&aid=&requestId=&format=&jsonpCallback=&lang=da&id=&date=&poly=false&polyEnc=N&showPassingPoints=false&rtMode=&fromId=&fromIdx=&toId=&toIdx=&baim=false&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"journeyDetail"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": ""
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": ""
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "id",
+									"value": ""
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "poly",
+									"value": "false"
+								},
+								{
+									"key": "polyEnc",
+									"value": "N"
+								},
+								{
+									"key": "showPassingPoints",
+									"value": "false"
+								},
+								{
+									"key": "rtMode",
+									"value": ""
+								},
+								{
+									"key": "fromId",
+									"value": ""
+								},
+								{
+									"key": "fromIdx",
+									"value": ""
+								},
+								{
+									"key": "toId",
+									"value": ""
+								},
+								{
+									"key": "toIdx",
+									"value": ""
+								},
+								{
+									"key": "baim",
+									"value": "false"
+								},
+								{
+									"key": null,
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "journeyDetail"
+		},
+		{
+			"name": "nearbyDepartureBoard",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/nearbyDepartureBoard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/nearbyDepartureBoard?accessId=&aid=&requestId=&format=&jsonpCallback=&lang=da&originCoordLat=&originCoordLong=&r=1000&direction=&date=&time=&dur=&duration=60&maxJourneys=-1&maxStations=30&products=&operators=&categories=&lines=&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"nearbyDepartureBoard"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": ""
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": ""
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "originCoordLat",
+									"value": ""
+								},
+								{
+									"key": "originCoordLong",
+									"value": ""
+								},
+								{
+									"key": "r",
+									"value": "1000"
+								},
+								{
+									"key": "direction",
+									"value": ""
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "time",
+									"value": ""
+								},
+								{
+									"key": "dur",
+									"value": ""
+								},
+								{
+									"key": "duration",
+									"value": "60"
+								},
+								{
+									"key": "maxJourneys",
+									"value": "-1"
+								},
+								{
+									"key": "maxStations",
+									"value": "30"
+								},
+								{
+									"key": "products",
+									"value": ""
+								},
+								{
+									"key": "operators",
+									"value": ""
+								},
+								{
+									"key": "categories",
+									"value": ""
+								},
+								{
+									"key": "lines",
+									"value": ""
+								},
+								{
+									"key": "attributes",
+									"value": ""
+								},
+								{
+									"key": "platforms",
+									"value": ""
+								},
+								{
+									"key": "passlist",
+									"value": "false"
+								},
+								{
+									"key": "passlistMaxStops",
+									"value": ""
+								},
+								{
+									"key": "minDur",
+									"value": ""
+								},
+								{
+									"key": "baim",
+									"value": "false"
+								},
+								{
+									"key": "rtMode",
+									"value": "SERVER_DEFAULT"
+								},
+								{
+									"key": "type",
+									"value": "DEP"
+								},
+								{
+									"key": null,
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "nearbyDepartureBoard"
+		},
+		{
+			"name": "tti",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/tti",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/tti?accessId=&aid=&requestId=&format=&jsonpCallback=&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"tti"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": ""
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": ""
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": null,
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "tti"
+		},
+		{
+			"name": "https://www.rejseplanen.dk/api/linesched",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.rejseplanen.dk/api/linesched?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&lineId=006_000022_C&date=2025-03-04&orderBy=DEPARTURE_ASC&includeHim=false&",
+					"protocol": "https",
+					"host": [
+						"www",
+						"rejseplanen",
+						"dk"
+					],
+					"path": [
+						"api",
+						"linesched"
+					],
+					"query": [
+						{
+							"key": "accessId",
+							"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+						},
+						{
+							"key": "aid",
+							"value": ""
+						},
+						{
+							"key": "requestId",
+							"value": ""
+						},
+						{
+							"key": "format",
+							"value": "xml"
+						},
+						{
+							"key": "jsonpCallback",
+							"value": ""
+						},
+						{
+							"key": "lang",
+							"value": "da"
+						},
+						{
+							"key": "lineId",
+							"value": "006_000022_C"
+						},
+						{
+							"key": "date",
+							"value": "2025-03-04"
+						},
+						{
+							"key": "orderBy",
+							"value": "DEPARTURE_ASC"
+						},
+						{
+							"key": "includeHim",
+							"value": "false"
+						},
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
