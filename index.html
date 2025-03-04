@@ -2,12 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <link rel="icon" href="train-solid.svg">
+    <title>Tid til tog</title>
+    <style>
+      ul#departures {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      ul#departures li {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        margin: 5px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      #countdown {
+        font-size: 35vw;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <!-- <button id="find-me">Show my location</button><br />
+    <p id="status"></p> -->
+    <div id="status"></div>
+    <ul id="departures">
+    </ul>
+    <div id="countdown"></div>
+
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
