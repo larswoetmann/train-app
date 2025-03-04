@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd">
+  <resources base="https://www.rejseplanen.dk/api/">
+    <resource path="datainfo">
+      <method name="GET">
+        <request>
+          <param name="accessId" required="true" style="query" type="xsd:string">
+            <doc><![CDATA[Access ID for identifying the requesting client. String not longer than 128.]]></doc>
+          </param>
+          <param name="aid" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Access ID that overrides the security value from the configuration. String not longer than 64.]]></doc>
+          </param>
+          <param name="requestId" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Request ID for identifying the request. String not longer than 2048.]]></doc>
+          </param>
+          <param name="format" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Requested response format. If not set, the Accept-Header is used. If both are missing application/xml is used]]></doc>
+          </param>
+          <param name="jsonpCallback" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Requests the JSON response data is wrapped into a JavaScript function with that name. String not longer than 1024.]]></doc>
+          </param>
+        </request>
+        <response>
+          <representation xmlns:proxy="http://hacon.de/hafas/proxy/hafas-proxy" element="proxy:DataInfo"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

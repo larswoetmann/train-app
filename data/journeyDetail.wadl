@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://wadl.dev.java.net/2009/02 wadl.xsd">
+  <resources base="https://www.rejseplanen.dk/api/">
+    <resource path="journeyDetail">
+      <method name="GET">
+        <request>
+          <param name="accessId" required="true" style="query" type="xsd:string">
+            <doc><![CDATA[Access ID for identifying the requesting client. String not longer than 128.]]></doc>
+          </param>
+          <param name="aid" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Access ID that overrides the security value from the configuration. String not longer than 64.]]></doc>
+          </param>
+          <param name="requestId" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Request ID for identifying the request. String not longer than 2048.]]></doc>
+          </param>
+          <param name="format" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Requested response format. If not set, the Accept-Header is used. If both are missing application/xml is used]]></doc>
+          </param>
+          <param name="jsonpCallback" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Requests the JSON response data is wrapped into a JavaScript function with that name. String not longer than 1024.]]></doc>
+          </param>
+          <param default="da" name="lang" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[The language of the journey planer. String not longer than 5.]]></doc>
+          </param>
+          <param name="id" required="true" style="query" type="xsd:string">
+            <doc><![CDATA[Specifies the internal journey id of the journey shall be retrieved. Maximum length 512. String not longer than 512.]]></doc>
+          </param>
+          <param name="date" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Day of operation]]></doc>
+          </param>
+          <param default="false" name="poly" required="false" style="query" type="xsd:int">
+            <doc><![CDATA[Enables/disables the calculation of the polyline for each leg of the trip except any GIS route.]]></doc>
+          </param>
+          <param default="N" name="polyEnc" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Defines encoding of the returned polyline. Possible values are N (no encoding / compression), DLT (delta to the previous coordinate), GPA (Google encoded polyline format) defaults to N. Not all option might be available in your installation.]]></doc>
+          </param>
+          <param default="false" name="showPassingPoints" required="false" style="query" type="xsd:int">
+            <doc><![CDATA[Enables/disables the return of stops having no alighting and no boarding in its passlist for each leg of the trip.]]></doc>
+          </param>
+          <param name="rtMode" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Set the realtime mode to be used.]]></doc>
+          </param>
+          <param name="fromId" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Specifies the station/stop ID the partial itinerary shall start from. String not longer than 512.]]></doc>
+          </param>
+          <param name="fromIdx" required="false" style="query" type="xsd:int">
+            <doc><![CDATA[Specifies the station/stop index the partial itinerary shall start from. Minimum of 0.]]></doc>
+          </param>
+          <param name="toId" required="false" style="query" type="xsd:string">
+            <doc><![CDATA[Specifies the station/stop ID the partial itinerary shall end at. String not longer than 512.]]></doc>
+          </param>
+          <param name="toIdx" required="false" style="query" type="xsd:int">
+            <doc><![CDATA[Specifies the station/stop index the partial itinerary shall end at. Minimum of 0.]]></doc>
+          </param>
+          <param default="false" name="baim" required="false" style="query" type="xsd:int">
+            <doc><![CDATA[Enables/disables BAIM search and response.]]></doc>
+          </param>
+        </request>
+        <response>
+          <representation xmlns:proxy="http://hacon.de/hafas/proxy/hafas-proxy" element="proxy:JourneyDetail"/>
+        </response>
+      </method>
+    </resource>
+  </resources>
+</application>

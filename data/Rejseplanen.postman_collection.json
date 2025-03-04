@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "5da467d3-687a-4838-8f66-f6d667f3ac98",
+		"name": "Rejseplanen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "976052"
+	},
+	"item": [
+		{
+			"name": "location.name",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/location.name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/location.name?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&input=måløv&maxNo=10&type=ALL&locationSelectionMode=&withEquivalentLocations=false&restrictSelection=S&products=&withProducts=true&productRepresentatives=&coordLat=&coordLong=&r=1000&refineId=&meta=&stations=&sattributes=&sinfotexts=&filterMode=DIST_PERI&poolId=&withMastNames=true&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"location.name"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": "xml"
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "input",
+									"value": "måløv"
+								},
+								{
+									"key": "maxNo",
+									"value": "10"
+								},
+								{
+									"key": "type",
+									"value": "ALL"
+								},
+								{
+									"key": "locationSelectionMode",
+									"value": ""
+								},
+								{
+									"key": "withEquivalentLocations",
+									"value": "false"
+								},
+								{
+									"key": "restrictSelection",
+									"value": "S"
+								},
+								{
+									"key": "products",
+									"value": ""
+								},
+								{
+									"key": "withProducts",
+									"value": "true"
+								},
+								{
+									"key": "productRepresentatives",
+									"value": ""
+								},
+								{
+									"key": "coordLat",
+									"value": ""
+								},
+								{
+									"key": "coordLong",
+									"value": ""
+								},
+								{
+									"key": "r",
+									"value": "1000"
+								},
+								{
+									"key": "refineId",
+									"value": ""
+								},
+								{
+									"key": "meta",
+									"value": ""
+								},
+								{
+									"key": "stations",
+									"value": ""
+								},
+								{
+									"key": "sattributes",
+									"value": ""
+								},
+								{
+									"key": "sinfotexts",
+									"value": ""
+								},
+								{
+									"key": "filterMode",
+									"value": "DIST_PERI"
+								},
+								{
+									"key": "poolId",
+									"value": ""
+								},
+								{
+									"key": "withMastNames",
+									"value": "true"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "location.name"
+		},
+		{
+			"name": "datainfo",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/datainfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/datainfo?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"datainfo"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": "xml"
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "datainfo"
+		},
+		{
+			"name": "linesearch",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/linesearch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/linesearch?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&operators=DSB&date=&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"linesearch"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": "xml"
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "operators",
+									"value": "DSB"
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "linesearch"
+		},
+		{
+			"name": "lineinfo",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/lineinfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/lineinfo?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&lineId=006_000022_C&date=2025-02-25&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"lineinfo"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": "xml"
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "lineId",
+									"value": "006_000022_C"
+								},
+								{
+									"key": "date",
+									"value": "2025-02-25"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "lineinfo"
+		},
+		{
+			"name": "departureBoard",
+			"item": [
+				{
+					"name": "https://www.rejseplanen.dk/api/departureBoard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=xml&jsonpCallback=&lang=da&id=8600709&extId=&direction=8600659&date=&time=&dur=&duration=60&maxJourneys=-1&products=&operators=DSB&categories=&lines=C&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&",
+							"protocol": "https",
+							"host": [
+								"www",
+								"rejseplanen",
+								"dk"
+							],
+							"path": [
+								"api",
+								"departureBoard"
+							],
+							"query": [
+								{
+									"key": "accessId",
+									"value": "5f2f5f78-f98b-4c63-bb69-c1a3b8757f77"
+								},
+								{
+									"key": "aid",
+									"value": ""
+								},
+								{
+									"key": "requestId",
+									"value": ""
+								},
+								{
+									"key": "format",
+									"value": "xml"
+								},
+								{
+									"key": "jsonpCallback",
+									"value": ""
+								},
+								{
+									"key": "lang",
+									"value": "da"
+								},
+								{
+									"key": "id",
+									"value": "8600709"
+								},
+								{
+									"key": "extId",
+									"value": ""
+								},
+								{
+									"key": "direction",
+									"value": "8600659"
+								},
+								{
+									"key": "date",
+									"value": ""
+								},
+								{
+									"key": "time",
+									"value": ""
+								},
+								{
+									"key": "dur",
+									"value": ""
+								},
+								{
+									"key": "duration",
+									"value": "60"
+								},
+								{
+									"key": "maxJourneys",
+									"value": "-1"
+								},
+								{
+									"key": "products",
+									"value": ""
+								},
+								{
+									"key": "operators",
+									"value": "DSB"
+								},
+								{
+									"key": "categories",
+									"value": ""
+								},
+								{
+									"key": "lines",
+									"value": "C"
+								},
+								{
+									"key": "attributes",
+									"value": ""
+								},
+								{
+									"key": "platforms",
+									"value": ""
+								},
+								{
+									"key": "passlist",
+									"value": "false"
+								},
+								{
+									"key": "passlistMaxStops",
+									"value": ""
+								},
+								{
+									"key": "minDur",
+									"value": ""
+								},
+								{
+									"key": "baim",
+									"value": "false"
+								},
+								{
+									"key": "rtMode",
+									"value": "SERVER_DEFAULT"
+								},
+								{
+									"key": "type",
+									"value": "DEP"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "departureBoard"
+		}
+	]
+}
