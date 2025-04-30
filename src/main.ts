@@ -9,6 +9,7 @@ var selectedJourneyDetailRef: string;
 var firstDepartureTime: Date | undefined;
 var clockTimer: number | undefined;
 var globalTimer: number | undefined;
+var lastPlayedMinute: number | undefined;
 
 function globalTimerFunction() {
   const now = new Date();
@@ -38,7 +39,6 @@ navigator.geolocation.watchPosition((position) => {
 
   const status = document.getElementById("status")!;
   status.textContent = `Closest station: ${closestStationName} (${closestDistance} m), Speed: ${position.coords.speed} m/s`;
-  console.log(position);
 
 }, (error) => {
   const status = document.getElementById("status")!;
@@ -57,13 +57,13 @@ function getClosestStation(latitude: number, longitude: number) {
   const distanceToSkovlunde = getDistance({ latitude: latitude, longitude: longitude }, skovlundeStation);
 
   //find the closest station
-  var closestStation = maaloevStation.id;
-  var closestStationName = maaloevStation.name;
-  var closestDistance = distanceToMaaloev;
-  if (distanceToOesterport < closestDistance) {
-    closestStation = oesterportStation.id;
-    closestStationName = oesterportStation.name;
-    closestDistance = distanceToOesterport;
+  var closestStation = oesterportStation.id;
+  var closestStationName = oesterportStation.name;
+  var closestDistance = distanceToOesterport;
+  if (distanceToMaaloev < closestDistance) {
+    closestStation = maaloevStation.id;
+    closestStationName = maaloevStation.name;
+    closestDistance = distanceToMaaloev;
   }
   if (distanceToSkovlunde < closestDistance) {
     closestStation = skovlundeStation.id;
@@ -100,6 +100,8 @@ function getDepartures(closestStation: string) {
     });
 }
 
+
+
 //call a function when a departures li element is clicked
 document.getElementById("departures")!.addEventListener("click", function (event) {
   const target = event.target as HTMLElement;
@@ -134,6 +136,7 @@ document.getElementById("departures")!.addEventListener("click", function (event
   const departureDate = getDepartureDate(departureTime);
   const countdown = document.getElementById("countdown")!;
   countdown.textContent = "";
+  lastPlayedMinute = 0;
 
   clockTimer = setInterval(function () {
     const now = new Date();
@@ -147,10 +150,13 @@ document.getElementById("departures")!.addEventListener("click", function (event
     const seconds = Math.floor((diff % 60000) / 1000);
     countdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    if (seconds == 0 && minutes <= 10) {
+    if (minutes > 0 && minutes <= 10 && lastPlayedMinute != minutes) {
+      lastPlayedMinute = minutes;
+      console.log("Play sound");
       const audio = new Audio('/train-app/' + minutes + '.mp3');
       audio.play();
     }
+    console.log("Countdown", minutes, seconds);
   }
     , 1000);
 
