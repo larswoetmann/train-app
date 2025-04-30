@@ -149,10 +149,10 @@ document.getElementById("departures")!.addEventListener("click", function (event
     const seconds = Math.floor((diff % 60000) / 1000);
     countdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-    if (minutes > 0 && minutes <= 10 && lastPlayedMinute != minutes) {
-      lastPlayedMinute = minutes;
-      console.log("Play sound");
-      const audio = new Audio('/train-app/' + minutes + '.mp3');
+    if (minutes > 0 && minutes <= 10 && lastPlayedMinute != minutes + 1) {
+      lastPlayedMinute = minutes + 1;
+      console.log("Play minute", minutes + 1);
+      const audio = new Audio('/train-app/' + (minutes + 1) + '.mp3');
       audio.play();
     }
     console.log("Countdown", minutes, seconds);
