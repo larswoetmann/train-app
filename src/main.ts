@@ -8,7 +8,6 @@ const skovlundeStation = { longitude: 12.403532, latitude: 55.722765, id: "86007
 var selectedJourneyDetailRef: string;
 var firstDepartureTime: Date | undefined;
 var clockTimer: number | undefined;
-var globalTimer: number | undefined;
 var lastPlayedMinute: number | undefined;
 
 function globalTimerFunction() {
@@ -30,7 +29,7 @@ function globalTimerFunction() {
 }
 
 globalTimerFunction();
-globalTimer = setInterval(globalTimerFunction, 60000);
+setInterval(globalTimerFunction, 60000);
 
 navigator.geolocation.watchPosition((position) => {
   const latitude = position.coords.latitude;
