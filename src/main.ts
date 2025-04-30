@@ -146,6 +146,11 @@ document.getElementById("departures")!.addEventListener("click", function (event
     const minutes = Math.floor(diff / 60000);
     const seconds = Math.floor((diff % 60000) / 1000);
     countdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    if (seconds == 0 && minutes <= 10) {
+      const audio = new Audio('/train-app/' + minutes + '.mp3');
+      audio.play();
+    }
   }
     , 1000);
 
