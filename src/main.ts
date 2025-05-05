@@ -1,5 +1,5 @@
 import { getDistance } from 'geolib';
-import { Root } from './model';
+import { Departure, Root } from './model';
 
 const maaloevStation = { longitude: 12.318323, latitude: 55.747485, id: "8600709", name: "Måløv Station" };
 const oesterportStation = { longitude: 12.587784, latitude: 55.692498, id: "8600650", name: "Østerport Station" };
@@ -18,6 +18,7 @@ function globalTimerFunction() {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         var { closestStation } = getClosestStation(latitude, longitude);
+        console.log("Closest Station " + closestStation);
         getDepartures(closestStation);
       }, (error) => {
         const countdown = document.getElementById("countdown")!;
@@ -73,33 +74,47 @@ function getClosestStation(latitude: number, longitude: number) {
 }
 
 function getDepartures(closestStation: string) {
-  fetch(`https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=${closestStation}&extId=&date=&time=&dur=&duration=60&maxJourneys=8&products=&operators=&categories=&lines=C&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&`)
+  var lines = "E,C";
+  var added = 0;
+  fetch(`https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=${closestStation}&extId=&date=&time=&dur=&duration=60&maxJourneys=30&products=&operators=&categories=&lines=${lines}&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&`)
     .then(response => response.json())
+    .catch((error) => console.log(error))
     .then((data: Root) => {
       const departures = data.Departure;
       const ul = document.getElementById("departures")!;
       ul.innerHTML = "";
+      console.log(departures);
+
       departures.forEach(departure => {
-        if (departure.directionFlag === "1" && closestStation === maaloevStation.id) {
-          var departureTime = getDepartureDate(departure.time);
+        if (added < 6 && showDeparture(departure, closestStation)) {
+          var departureTime = getDepartureDate(departure.rtTime || departure.time);
           if (!firstDepartureTime || departureTime < firstDepartureTime) {
             firstDepartureTime = departureTime;
           }
 
           const li = document.createElement("li");
-          li.textContent = `${departure.time} ${departure.name} ${departure.direction}`;
+          li.textContent = `${departure.rtTime || departure.time} ${departure.name} ${departure.direction}`;
           li.attributes.setNamedItem(document.createAttribute("data"));
           li.attributes.getNamedItem("data")!.value = departure.JourneyDetailRef.ref;
           if(selectedJourneyDetailRef === departure.JourneyDetailRef.ref) {
             li.style.backgroundColor = "green";
           }
           ul.appendChild(li);
+          added++;
         }
       });
     });
 }
 
-
+function showDeparture(departure: Departure, closestStation: string): boolean {
+  if (departure.name == "C") {
+    return (departure.directionFlag === "1" && closestStation === maaloevStation.id) || (departure.directionFlag === "0" && closestStation != maaloevStation.id);
+  }
+  if (departure.name == "E" && departure.direction == "Farum St.") {
+    return departure.directionFlag === "1" && closestStation === oesterportStation.id;
+  }
+  return false;
+}
 
 //call a function when a departures li element is clicked
 document.getElementById("departures")!.addEventListener("click", function (event) {

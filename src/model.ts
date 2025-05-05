@@ -24,6 +24,7 @@ export interface Departure {
   isMainMast: boolean
   prognosisType: string
   time: string
+  rtTime: string
   date: string
   rtTrack: string
   reachable: boolean
