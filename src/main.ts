@@ -96,8 +96,14 @@ function getDepartures(closestStation: string) {
           li.textContent = `${departure.rtTime || departure.time} ${departure.name} ${departure.direction}`;
           li.attributes.setNamedItem(document.createAttribute("data"));
           li.attributes.getNamedItem("data")!.value = departure.JourneyDetailRef.ref;
+          li.attributes.setNamedItem(document.createAttribute("status"));
+          li.attributes.getNamedItem("status")!.value = departure.cancelled ? "cancelled" : "runs";
           if(selectedJourneyDetailRef === departure.JourneyDetailRef.ref) {
             li.style.backgroundColor = "green";
+          }
+          if(departure.cancelled) {
+            li.style.textDecoration = "line-through";
+            li.style.backgroundColor = "red";
           }
           ul.appendChild(li);
           added++;
@@ -120,10 +126,17 @@ function showDeparture(departure: Departure, closestStation: string): boolean {
 document.getElementById("departures")!.addEventListener("click", function (event) {
   const target = event.target as HTMLElement;
 
+  var status = target.attributes.getNamedItem("status")!.value;
+  if(status === "cancelled") {
+    return;
+  }
+
   //remove color of all li element
   const ul = document.getElementById("departures")!;
   ul.childNodes.forEach(node => {
-    (node as HTMLElement).style.backgroundColor = "";
+    if((node as HTMLElement).style.backgroundColor === "green") {
+      (node as HTMLElement).style.backgroundColor = "";
+    }
   });
 
   if (clockTimer) {
