@@ -4,8 +4,7 @@ import { Departure, Root } from './model';
 const maaloevStation = { longitude: 12.318323, latitude: 55.747485, id: "8600709", name: "Måløv Station" };
 const oesterportStation = { longitude: 12.587784, latitude: 55.692498, id: "8600650", name: "Østerport Station" };
 const skovlundeStation = { longitude: 12.403532, latitude: 55.722765, id: "8600707", name: "Skovlunde Station" };
-const frederikssundStation = { longitude: 12.056536, latitude: 55.835809, id: "8600708", name: "Frederikssund Station" };
-
+const frederikssundStation = { longitude: 12.065636, latitude: 55.835809, id: "8600714", name: "Frederikssund Station" };
 
 var selectedJourneyDetailRef: string;
 var firstDepartureTime: Date | undefined;
