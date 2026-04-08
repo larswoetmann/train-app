@@ -4,6 +4,8 @@ import { Departure, Root } from './model';
 const maaloevStation = { longitude: 12.318323, latitude: 55.747485, id: "8600709", name: "Måløv Station" };
 const oesterportStation = { longitude: 12.587784, latitude: 55.692498, id: "8600650", name: "Østerport Station" };
 const skovlundeStation = { longitude: 12.403532, latitude: 55.722765, id: "8600707", name: "Skovlunde Station" };
+const frederikssundStation = { longitude: 12.056536, latitude: 55.835809, id: "8600708", name: "Frederikssund Station" };
+
 
 var selectedJourneyDetailRef: string;
 var firstDepartureTime: Date | undefined;
@@ -53,6 +55,7 @@ navigator.geolocation.watchPosition((position) => {
 
 function getClosestStation(latitude: number, longitude: number) {
   const distanceToMaaloev = getDistance({ latitude: latitude, longitude: longitude }, maaloevStation);
+  const distanceToFrederikssund = getDistance({ latitude: latitude, longitude: longitude }, frederikssundStation);
   const distanceToOesterport = getDistance({ latitude: latitude, longitude: longitude }, oesterportStation);
   const distanceToSkovlunde = getDistance({ latitude: latitude, longitude: longitude }, skovlundeStation);
 
@@ -69,6 +72,11 @@ function getClosestStation(latitude: number, longitude: number) {
     closestStation = skovlundeStation.id;
     closestStationName = skovlundeStation.name;
     closestDistance = distanceToSkovlunde;
+  }
+  if (distanceToFrederikssund < closestDistance) {
+    closestStation = frederikssundStation.id;
+    closestStationName = frederikssundStation.name;
+    closestDistance = distanceToFrederikssund;
   }
   return { closestStationName, closestDistance, closestStation };
 }
@@ -124,7 +132,7 @@ function getDepartures(closestStation: string) {
 
 function showDeparture(departure: Departure, closestStation: string): boolean {
   if (departure.name == "C") {
-    if (closestStation === maaloevStation.id) {
+    if (closestStation === maaloevStation.id || closestStation === frederikssundStation.id) {
       return departure.directionFlag === "1" || (departure.directionFlag === undefined && departure.direction != "Frederikssund St.");
     }
     return departure.directionFlag === "0" || (departure.directionFlag === undefined && departure.direction == "Frederikssund St.");
