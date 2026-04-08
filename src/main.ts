@@ -107,10 +107,14 @@ function getDepartures(closestStation: string) {
           }
           if(departure.cancelled) {
             li.classList.add("cancelled");
+          } else {
+            const notes = departure.Notes.Note.filter(note => note.type === "R");
+            //add all notes to the note element, separated by <br>.
+            if (notes.length > 0) {
+              note.innerHTML = notes.map(note => note.txtN).join("<br>");
+            } 
           }
-          if(departure.partCancelled !== undefined && departure.partCancelled) {
-            note.textContent = departure.Notes.Note.find(note => note.key === "text.realtime.journey.partially.cancelled.between")?.txtN || "Partly cancelled";
-          }
+
           ul.appendChild(li);
           added++;
         }
