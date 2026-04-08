@@ -105,6 +105,9 @@ function getDepartures(closestStation: string) {
             li.style.textDecoration = "line-through";
             li.style.backgroundColor = "red";
           }
+          if(departure.partCancelled !== undefined && departure.partCancelled) {
+            li.style.backgroundColor = "lightyellow";
+          }
           ul.appendChild(li);
           added++;
         }
@@ -114,10 +117,13 @@ function getDepartures(closestStation: string) {
 
 function showDeparture(departure: Departure, closestStation: string): boolean {
   if (departure.name == "C") {
-    return (departure.directionFlag === "1" && closestStation === maaloevStation.id) || (departure.directionFlag === "0" && closestStation != maaloevStation.id);
+    if (closestStation === maaloevStation.id) {
+      return departure.directionFlag === "1" || (departure.directionFlag === undefined && departure.direction != "Frederikssund St.");
+    }
+    return departure.directionFlag === "0" || (departure.directionFlag === undefined && departure.direction == "Frederikssund St.");
   }
   if (departure.name == "E" && departure.direction == "Farum St.") {
-    return departure.directionFlag === "1" && closestStation === oesterportStation.id;
+    return departure.directionFlag === undefined || (departure.directionFlag === "1" && closestStation === oesterportStation.id);
   }
   return false;
 }

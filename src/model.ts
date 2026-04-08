@@ -28,6 +28,7 @@ export interface Departure {
   date: string
   rtTrack: string
   cancelled: boolean
+  partCancelled: boolean
   reachable: boolean
   direction: string
   directionFlag: string
