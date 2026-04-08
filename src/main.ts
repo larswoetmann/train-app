@@ -93,20 +93,23 @@ function getDepartures(closestStation: string) {
           }
 
           const li = document.createElement("li");
-          li.textContent = `${departure.rtTime || departure.time} ${departure.name} ${departure.direction}`;
+          const departureClockTime = departure.rtTime || departure.time;
+          li.innerHTML = `<div class="departure-main"><span>${departureClockTime}</span><span>${departure.name}</span><span>${departure.direction}</span></div><div class="departure-note"></div>`;
           li.attributes.setNamedItem(document.createAttribute("data"));
           li.attributes.getNamedItem("data")!.value = departure.JourneyDetailRef.ref;
+          li.attributes.setNamedItem(document.createAttribute("time"));
+          li.attributes.getNamedItem("time")!.value = departureClockTime;
           li.attributes.setNamedItem(document.createAttribute("status"));
           li.attributes.getNamedItem("status")!.value = departure.cancelled ? "cancelled" : "runs";
+          const note = li.querySelector(".departure-note") as HTMLDivElement;
           if(selectedJourneyDetailRef === departure.JourneyDetailRef.ref) {
-            li.style.backgroundColor = "green";
+            li.classList.add("selected");
           }
           if(departure.cancelled) {
-            li.style.textDecoration = "line-through";
-            li.style.backgroundColor = "red";
+            li.classList.add("cancelled");
           }
           if(departure.partCancelled !== undefined && departure.partCancelled) {
-            li.style.backgroundColor = "lightyellow";
+            note.textContent = departure.Notes.Note.find(note => note.key === "text.realtime.journey.partially.cancelled.between")?.txtN || "Partly cancelled";
           }
           ul.appendChild(li);
           added++;
@@ -131,17 +134,20 @@ function showDeparture(departure: Departure, closestStation: string): boolean {
 //call a function when a departures li element is clicked
 document.getElementById("departures")!.addEventListener("click", function (event) {
   const target = event.target as HTMLElement;
+  const li = target.closest("li");
+  const countdown = document.getElementById("countdown")!;
+  const alreadySelected = li?.classList.contains("selected");
 
-  var status = target.attributes.getNamedItem("status")!.value;
-  if(status === "cancelled") {
-    return;
-  }
+  selectedJourneyDetailRef = "";
+
+  //remove timer text
+  countdown.textContent = "";
 
   //remove color of all li element
   const ul = document.getElementById("departures")!;
   ul.childNodes.forEach(node => {
-    if((node as HTMLElement).style.backgroundColor === "green") {
-      (node as HTMLElement).style.backgroundColor = "";
+    if((node as HTMLElement).classList.contains("selected")) {
+      (node as HTMLElement).classList.remove("selected");
     }
   });
 
@@ -149,31 +155,27 @@ document.getElementById("departures")!.addEventListener("click", function (event
     clearInterval(clockTimer);
   }
 
-  //check if target is a li element
-  if (target.tagName !== "LI") {
-    selectedJourneyDetailRef = "";
-
-    //remove timer text
-    const countdown = document.getElementById("countdown")!;
-    countdown.textContent = "";
-
+  if (!li || alreadySelected) {
     return;
   }
 
-  selectedJourneyDetailRef = target.attributes.getNamedItem("data")!.value;
+  var status = li.attributes.getNamedItem("status")!.value;
+  if(status === "cancelled") {
+    return;
+  }
+
+  selectedJourneyDetailRef = li.attributes.getNamedItem("data")!.value;
   //update color of selected li element
-  target.style.backgroundColor = "green";
+  li.classList.add("selected");
 
   //show countdown timer for selected departur time
-  const departureTime = target.textContent!.split(" ")[0];
+  const departureTime = li.attributes.getNamedItem("time")!.value;
   const departureDate = getDepartureDate(departureTime);
-  const countdown = document.getElementById("countdown")!;
   countdown.textContent = "";
-  lastPlayedMinute = 0;
+  lastPlayedMinute = Math.floor(getDepartureDiff(departureDate) / 60000) + 1; //set to current minute + 1 to avoid playing sound immediately
 
   clockTimer = setInterval(function () {
-    const now = new Date();
-    const diff = departureDate.getTime() - now.getTime();
+    const diff = getDepartureDiff(departureDate);
     if (diff <= 0) {
       clearInterval(clockTimer);
       countdown.textContent = "Departure time";
@@ -194,6 +196,12 @@ document.getElementById("departures")!.addEventListener("click", function (event
     , 1000);
 
 });
+
+function getDepartureDiff(departureDate: Date): number {
+    const now = new Date();
+    const diff = departureDate.getTime() - now.getTime();
+    return diff;
+}
 
 function getDepartureDate(departureTime: string) {
   const departureDate = new Date();
