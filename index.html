@@ -20,13 +20,38 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
+      .departure-main {
+        display: grid;
+        grid-template-columns: 72px 32px 1fr;
+        gap: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .departure-note {
+        margin-top: 6px;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      ul#departures li.selected {
+        background-color: #c9f3ce;
+        border-color: #74b87a;
+      }
+
+      ul#departures li.cancelled {
+        text-decoration: line-through;
+        background-color: #ffd6d6;
+        border-color: #ef9a9a;
+      }
+
       #countdown {
         font-size: 35vw;
         text-align: center;
         margin-top: 20px;
       }
     </style>
-    <script type="module" crossorigin src="/train-app/assets/index-arlNOquD.js"></script>
+    <script type="module" crossorigin src="/train-app/assets/index-CX81AXUM.js"></script>
   </head>
   <body>
     <!-- <button id="find-me">Show my location</button><br />
