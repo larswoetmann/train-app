@@ -19,6 +19,19 @@
     <div id="countdown"></div>
     <ul id="departures">
     </ul>
+    <details id="features-panel">
+      <summary>Funktioner</summary>
+      <ul id="features-list">
+        <li>Automatisk valg af nærmeste station</li>
+        <li>Opdatering af afgangstider hver 30. sekund</li>
+        <li>Station kan vælges via dropdown eller query parameter <code>stationId</code></li>
+        <li>Hver station har en standardretning. Uden for storkøbenhavn er det mod byen, indenfor er det væk fra byen</li>
+        <li>Retning kan skiftes via knap eller query parameter <code>switchDirection=true</code></li>
+        <li>Nedtælling for valgt afgang med lyd i sidste 10 minutter. Lyd mutes automatisk hvis afstanden til stationen er mindre end 100 meter. (lyd virker ikke altid hvis skærmen er slukket)</li>
+        <li>Annullerede afgange vises i kompakt format</li>
+        <li>Virker fuldt for linje C og delvist for linje B, sig til hvis andre linjer skal tilføjes</li>
+      </ul>
+    </details>
 
     <script type="module" src="./src/main.ts"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script> -->

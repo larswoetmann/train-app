@@ -157,6 +157,37 @@ ul#departures li.cancelled .departure-note {
   font-size: clamp(58px, 18vw, 220px);
 }
 
+#features-panel {
+  max-width: 980px;
+  margin: 18px auto 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  box-shadow: 0 6px 18px rgba(20, 35, 30, 0.08);
+}
+
+#features-panel > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+#features-panel[open] > summary {
+  margin-bottom: 8px;
+}
+
+#features-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+#features-list li + li {
+  margin-top: 4px;
+}
+
 @media (max-width: 760px) {
   body {
     padding-top: 118px;

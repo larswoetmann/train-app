@@ -147,7 +147,7 @@ function updateStatus() {
     distanceText = ` (${getDistance({ latitude, longitude }, selectedStation)} m)`;
   }
 
-  status.innerHTML = `Valgt station: ${selectedStation.name}${distanceText}, <br>Retning ${getDirectionText(selectedStation)}`;
+  status.innerHTML = `Station: ${selectedStation.name}${distanceText}, <br>Retning: ${getDirectionText(selectedStation)}`;
 }
 
 function updateStationIdQuery(stationId?: string) {
@@ -188,8 +188,6 @@ function getDirectionText(selectedStation: Station): string {
   });
 
   return directions.join(", ");
-
-
 }
 
 function getEffectiveDirection(direction: string | undefined): string | undefined {
@@ -345,6 +343,15 @@ document.getElementById("departures")!.addEventListener("click", function (event
     countdown.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
     if (minutes > 0 && minutes <= 10 && lastPlayedMinute != minutes + 1) {
+      //do not play sound if distance to station is less than 100 meters
+      if (lastKnownPosition && selectedStation) {
+        const distance = getDistance({ latitude: lastKnownPosition.coords.latitude, longitude: lastKnownPosition.coords.longitude }, selectedStation);
+        if (distance < 100) {
+          console.log("Not playing sound, distance to station is less than 100 meters:", distance);
+          return;
+        }
+      }
+
       lastPlayedMinute = minutes + 1;
       console.log("Play minute", minutes + 1);
       const audio = new Audio('/train-app/' + (minutes + 1) + '.mp3');
