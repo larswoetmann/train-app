@@ -128,6 +128,7 @@ function initializeSwitchDirectionToggle() {
     updateSwitchDirectionQuery(switchDirectionToggle.checked);
     if (selectedStation) {
       getDepartures(selectedStation);
+      updateStatus();
     }
   });
 }
@@ -139,14 +140,14 @@ function updateStatus() {
     return;
   }
 
-  if (!lastKnownPosition) {
-    status.textContent = `Valgt station: ${selectedStation.name}`;
-    return;
+  var distanceText = "";
+  if (lastKnownPosition) {
+    const latitude = lastKnownPosition.coords.latitude;
+    const longitude = lastKnownPosition.coords.longitude;
+    distanceText = ` (${getDistance({ latitude, longitude }, selectedStation)} m)`;
   }
 
-  const latitude = lastKnownPosition.coords.latitude;
-  const longitude = lastKnownPosition.coords.longitude;
-  status.textContent = `Valgt station: ${selectedStation.name} (${getDistance({ latitude, longitude }, selectedStation)} m), Speed: ${lastKnownPosition?.coords.speed ?? 0} m/s`;
+  status.innerHTML = `Valgt station: ${selectedStation.name}${distanceText}, <br>Retning ${getDirectionText(selectedStation)}`;
 }
 
 function updateStationIdQuery(stationId?: string) {
@@ -172,6 +173,23 @@ function updateSwitchDirectionQuery(enabled: boolean) {
 function isSwitchDirectionEnabled(): boolean {
   const params = new URLSearchParams(window.location.search);
   return params.get("switchDirection") === "true";
+}
+
+function getDirectionText(selectedStation: Station): string {
+  if (!selectedStation) {
+    return "Ukendt";
+  }
+  
+  // use default direction for each line selectedStation and then use lineEndStations to get the end station name for that line and direction
+  const directions = Object.entries(selectedStation.defaultDirection).map(([line, directionInfo]) => {
+    const effectiveDirection = getEffectiveDirection(directionInfo.direction);
+    const endStationName = lineEndStations[line + "_" + effectiveDirection];
+    return endStationName ? `${endStationName}` : line;
+  });
+
+  return directions.join(", ");
+
+
 }
 
 function getEffectiveDirection(direction: string | undefined): string | undefined {
@@ -267,8 +285,7 @@ function showDeparture(departure: Departure, selectedStation: Station): boolean 
     departure.directionFlag === stationDirection || 
     (
       departure.directionFlag === undefined && 
-      lineEndStations[departure.name]?.direction === fallbackDirection &&
-      departure.direction === lineEndStations[departure.name]?.stationName
+      lineEndStations[departure.name + "_" + fallbackDirection] === departure.direction
     )
   );
 }

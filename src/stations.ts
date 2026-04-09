@@ -76,7 +76,9 @@ export const stations = [
 export const lines = "B,C";
 
 //export dictionary with list of end stations for each line
-export const lineEndStations: { [key: string]: {stationName: string, direction: string} } = {
-  "B": {stationName:"Farum St.", direction:"1"},
-  "C": {stationName:"Frederikssund St.", direction:"0"},
+export const lineEndStations: { [key: string]: string } = {
+  "B_0": "Høje Taastrup St.",
+  "B_1": "Farum St.",
+  "C_0": "Frederikssund St.",
+  "C_1": "Klampenborg St.",
 };
