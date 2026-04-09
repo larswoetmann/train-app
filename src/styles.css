@@ -133,6 +133,17 @@ ul#departures li.cancelled {
   background: var(--danger-soft);
   border-color: var(--danger-border);
   text-decoration: line-through;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 4px 0;
+}
+
+ul#departures li.cancelled .departure-main {
+  font-size: 0.94rem;
+}
+
+ul#departures li.cancelled .departure-note {
+  display: none;
 }
 
 #countdown {
