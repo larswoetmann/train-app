@@ -3,59 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="train-solid.svg">
+    <link rel="icon" href="train-solid.svg">
     <title>Tid til tog</title>
-    <style>
-      ul#departures {
-        list-style-type: none;
-        padding: 0;
-      }
-
-      ul#departures li {
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 20px;
-        margin: 5px 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .departure-main {
-        display: grid;
-        grid-template-columns: 72px 32px 1fr;
-        gap: 8px;
-        font-size: 1.1rem;
-        font-weight: 600;
-      }
-
-      .departure-note {
-        margin-top: 6px;
-        font-size: 0.9rem;
-        color: #555;
-      }
-
-      ul#departures li.selected {
-        background-color: #c9f3ce;
-        border-color: #74b87a;
-      }
-
-      ul#departures li.cancelled {
-        text-decoration: line-through;
-        background-color: #ffd6d6;
-        border-color: #ef9a9a;
-      }
-
-      #countdown {
-        font-size: 35vw;
-        text-align: center;
-        margin-top: 20px;
-      }
-    </style>
-    <script type="module" crossorigin src="/train-app/assets/index-CCwzS9rR.js"></script>
+    <script type="module" crossorigin src="/train-app/assets/index-BSs4Q2c-.js"></script>
+    <link rel="stylesheet" crossorigin href="/train-app/assets/index-brjyjbgo.css">
   </head>
   <body>
-    <!-- <button id="find-me">Show my location</button><br />
-    <p id="status"></p> -->
+    <div id="station-selector">
+      <select id="station-select" aria-label="Vælg station"></select>
+      <label id="switch-direction-label" for="switch-direction">
+        <input type="checkbox" id="switch-direction" aria-label="Switch direction" />
+        switch direction
+      </label>
+    </div>
     <div id="status"></div>
     <ul id="departures">
     </ul>
