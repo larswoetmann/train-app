@@ -217,7 +217,7 @@ function getDepartures(selectedStation: Station) {
       console.log(departures.filter(departure => departure.Product[0].catOut === "S-Tog"));
 
       departures.forEach(departure => {
-        if (added < 7 && addedNotCancelled < 4 && showDeparture(departure, selectedStation)) {
+        if (added < 14 && addedNotCancelled < 8 && showDeparture(departure, selectedStation)) {
           var departureTime = getDepartureDate(departure.rtTime || departure.time);
           if (!firstDepartureTime || departureTime < firstDepartureTime) {
             firstDepartureTime = departureTime;
