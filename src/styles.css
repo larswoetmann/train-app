@@ -157,6 +157,36 @@ ul#departures li.cancelled .departure-note {
   font-size: clamp(58px, 18vw, 220px);
 }
 
+#departures-loading {
+  max-width: 980px;
+  margin: 12px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+#departures-loading[hidden] {
+  display: none;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 109, 91, 0.22);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #features-panel {
   max-width: 980px;
   margin: 18px auto 0;

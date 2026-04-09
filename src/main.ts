@@ -10,6 +10,7 @@ var selectedStation: Station | undefined;
 var lastKnownPosition: GeolocationPosition | undefined;
 const stationSelect = document.getElementById("station-select") as HTMLSelectElement;
 const switchDirectionToggle = document.getElementById("switch-direction") as HTMLInputElement;
+const departuresLoading = document.getElementById("departures-loading") as HTMLDivElement;
 
 initializeStationSelect();
 initializeSwitchDirectionToggle();
@@ -222,13 +223,14 @@ function getClosestStation(latitude: number, longitude: number): Station {
 function getDepartures(selectedStation: Station) {
   var added = 0;
   var addedNotCancelled = 0;
+  const ul = document.getElementById("departures")!;
+  ul.innerHTML = "";
+  setDeparturesLoading(true);
+
   fetch(`https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=${selectedStation.id}&extId=&date=&time=&dur=&duration=60&maxJourneys=60&products=&operators=&categories=&lines=&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&`)
     .then(response => response.json())
-    .catch((error) => console.log(error))
     .then((data: Root) => {
       const departures = data.Departure;
-      const ul = document.getElementById("departures")!;
-      ul.innerHTML = "";
       //log departures to console where .Product[0].catOut === "S-Tog"
       console.log(departures.filter(departure => departure.Product[0].catOut === "S-Tog"));
 
@@ -271,7 +273,18 @@ function getDepartures(selectedStation: Station) {
           }
         }
       });
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      setDeparturesLoading(false);
     });
+}
+
+function setDeparturesLoading(isLoading: boolean) {
+  departuresLoading.setAttribute("aria-busy", isLoading ? "true" : "false");
+  departuresLoading.hidden = !isLoading;
 }
 
 function showDeparture(departure: Departure, selectedStation: Station): boolean {
