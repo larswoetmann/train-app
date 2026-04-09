@@ -206,7 +206,6 @@ function getClosestStation(latitude: number, longitude: number): Station {
 function getDepartures(selectedStation: Station) {
   var added = 0;
   var addedNotCancelled = 0;
-  var addedCancelled = 0;
   fetch(`https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=${selectedStation.id}&extId=&date=&time=&dur=&duration=60&maxJourneys=60&products=&operators=&categories=&lines=&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&`)
     .then(response => response.json())
     .catch((error) => console.log(error))
@@ -218,10 +217,7 @@ function getDepartures(selectedStation: Station) {
       console.log(departures.filter(departure => departure.Product[0].catOut === "S-Tog"));
 
       departures.forEach(departure => {
-        if (added < 8 && addedNotCancelled < 5 && showDeparture(departure, selectedStation)) {
-          if(departure.cancelled && addedCancelled >= 4) {
-            return;
-          }
+        if (added < 7 && addedNotCancelled < 4 && showDeparture(departure, selectedStation)) {
           var departureTime = getDepartureDate(departure.rtTime || departure.time);
           if (!firstDepartureTime || departureTime < firstDepartureTime) {
             firstDepartureTime = departureTime;
@@ -254,9 +250,6 @@ function getDepartures(selectedStation: Station) {
           added++;
           if(!departure.cancelled) {
             addedNotCancelled++;
-          }
-          if(departure.cancelled) {
-            addedCancelled++;
           }
         }
       });
