@@ -241,7 +241,9 @@ function getDepartures(selectedStation: Station) {
 
           const li = document.createElement("li");
           const departureClockTime = departure.rtTime || departure.time;
-          li.innerHTML = `<div class="departure-main"><span>${departureClockTime}</span><span>${departure.name}</span><span>${departure.direction}</span></div><div class="departure-note"></div>`;
+          //show departure time without seconds
+          const departureTimeWithoutSeconds = departureClockTime.slice(0, -3);
+          li.innerHTML = `<div class="departure-main"><span>${departureTimeWithoutSeconds}</span><span>${departure.name}</span><span>${departure.direction}</span></div><div class="departure-note"></div>`;
           li.attributes.setNamedItem(document.createAttribute("data"));
           li.attributes.getNamedItem("data")!.value = departure.JourneyDetailRef.ref;
           li.attributes.setNamedItem(document.createAttribute("time"));
