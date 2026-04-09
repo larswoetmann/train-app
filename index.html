@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="train-solid.svg">
     <title>Tid til tog</title>
-    <script type="module" crossorigin src="/train-app/assets/index-BUxL0_Rs.js"></script>
-    <link rel="stylesheet" crossorigin href="/train-app/assets/index-CEUYJTh0.css">
+    <script type="module" crossorigin src="/train-app/assets/index-zUzcKLOQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/train-app/assets/index-DR1OIyBc.css">
   </head>
   <body>
     <div id="station-selector">
@@ -18,6 +18,10 @@
     </div>
     <div id="status"></div>
     <div id="countdown"></div>
+    <div id="departures-loading" aria-live="polite" aria-busy="true" hidden>
+      <div class="spinner"></div>
+      <span>Henter afgange...</span>
+    </div>
     <ul id="departures">
     </ul>
     <details id="features-panel">
