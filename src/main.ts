@@ -14,6 +14,7 @@ const departuresLoading = document.getElementById("departures-loading") as HTMLD
 
 initializeStationSelect();
 initializeSwitchDirectionToggle();
+setDeparturesLoading(true);
 
 setSelectedStation();
 setInterval(() => getDepartures(selectedStation!), 60000);
@@ -225,7 +226,6 @@ function getDepartures(selectedStation: Station) {
   var addedNotCancelled = 0;
   const ul = document.getElementById("departures")!;
   ul.innerHTML = "";
-  setDeparturesLoading(true);
 
   fetch(`https://www.rejseplanen.dk/api/departureBoard?accessId=5f2f5f78-f98b-4c63-bb69-c1a3b8757f77&aid=&requestId=&format=json&jsonpCallback=&lang=da&id=${selectedStation.id}&extId=&date=&time=&dur=&duration=60&maxJourneys=60&products=&operators=&categories=&lines=&attributes=&platforms=&passlist=false&passlistMaxStops=&minDur=&baim=false&rtMode=SERVER_DEFAULT&type=DEP&`)
     .then(response => response.json())
