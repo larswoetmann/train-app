@@ -72,10 +72,33 @@ function setSelectedStation() {
 function setStationFromLocation(position: GeolocationPosition) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
-  selectedStation = getClosestStation(latitude, longitude);
+  selectedStation = getClosestStation(latitude, longitude, getNearestStationCandidates());
   console.log("Using nearest station:", selectedStation);
   updateStatus();
   getDepartures(selectedStation);
+}
+
+function getNearestStationCandidates(): Station[] {
+  const params = new URLSearchParams(window.location.search);
+  const stationIdsQuery = params.get("stationIds");
+  if (!stationIdsQuery) {
+    return stations;
+  }
+
+  const requestedIds = stationIdsQuery
+    .split(",")
+    .map(id => id.trim())
+    .filter(id => id.length > 0);
+
+  if (requestedIds.length === 0) {
+    return stations;
+  }
+
+  const requestedIdSet = new Set(requestedIds);
+  const filteredStations = stations.filter(station => requestedIdSet.has(station.id));
+
+  // If all requested IDs are invalid, keep existing behavior and consider all stations.
+  return filteredStations.length > 0 ? filteredStations : stations;
 }
 
 function initializeStationSelect() {
@@ -208,8 +231,8 @@ function getEffectiveDirection(direction: string | undefined): string | undefine
   return direction;
 }
 
-function getClosestStation(latitude: number, longitude: number): Station {
-  const stationDistances = stations.map(station => ({
+function getClosestStation(latitude: number, longitude: number, candidateStations: Station[] = stations): Station {
+  const stationDistances = candidateStations.map(station => ({
     station,
     distance: getDistance({ latitude, longitude }, station),
   }));
